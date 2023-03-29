@@ -3,7 +3,10 @@ import db from '.';
 
 class Users extends Model {
   declare id: number;
-  declare teamName: string; // camel case porque vamos usar  underscored: true
+  declare userName: string;
+  declare role: string;
+  declare email: string;
+  declare password: string;
 }
 
 Users.init({
@@ -30,7 +33,6 @@ Users.init({
     allowNull: false, 
   },
 }, {
-  underscored: true,
   sequelize: db,
   modelName: 'users',
   timestamps: false,
