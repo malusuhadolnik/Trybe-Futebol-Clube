@@ -3,11 +3,11 @@ import db from '.';
 
 class Teams extends Model {
   declare id: number;
-  declare teamName: string;
+  declare teamName: string; //camel case porque vamos usar  underscored: true
 }
 
 Teams.init({
-  id: { // exemplo do Course: dia 02, model com sequelize
+  id: { // exemplo do Course: intro ao TS dia 02, model com sequelize
     type: INTEGER,
     allowNull: false,
     primaryKey: true,
