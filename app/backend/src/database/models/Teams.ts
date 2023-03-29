@@ -1,9 +1,9 @@
-import { Model, INTEGER, STRING,} from 'sequelize'; // importamos os tipos direto do sequelize!
+import { Model, INTEGER, STRING } from 'sequelize'; // importamos os tipos direto do sequelize!
 import db from '.';
 
 class Teams extends Model {
   declare id: number;
-  declare teamName: string; //camel case porque vamos usar  underscored: true
+  declare teamName: string; // camel case porque vamos usar  underscored: true
 }
 
 Teams.init({
@@ -16,7 +16,7 @@ Teams.init({
   teamName: {
     type: STRING,
     allowNull: false, // No readme não diz se pode ser null ou não, então setei para false para garantir que não vai ter erros no futuro
-  }
+  },
 }, {
   underscored: true,
   sequelize: db,
