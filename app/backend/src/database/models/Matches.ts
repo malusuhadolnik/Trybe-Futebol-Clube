@@ -40,7 +40,7 @@ Matches.init({
   },
   inProgress: {
     type: BOOLEAN,
-    allowNull: true,
+    allowNull: false,
     field: 'in_progress',
   },
 }, {
