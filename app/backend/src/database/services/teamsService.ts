@@ -19,6 +19,7 @@
 
 import { ModelStatic } from 'sequelize';
 import Teams from '../models/Teams';
+import ITeam from '../interfaces/ITeam';
 
 export default class TeamsService {
   model: ModelStatic<Teams> = Teams;
@@ -26,5 +27,10 @@ export default class TeamsService {
   async getAll():Promise<Teams[]> {
     const allTeams = await this.model.findAll();
     return allTeams;
+  }
+
+  async getById(id: number):Promise<ITeam | null> { // preciso construir essa interface ainda
+    const targetId = await this.model.findByPk(id);
+    return targetId;
   }
 }
