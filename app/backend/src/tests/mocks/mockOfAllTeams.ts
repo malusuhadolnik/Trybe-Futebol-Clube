@@ -1,4 +1,4 @@
-const mockOfAllTeams = [
+export const mockOfAllTeams = [
 	{
 		"id": 1,
 		"teamName": "Avaí/Kindermann"

@@ -6,6 +6,7 @@ import { app } from '../app';
 import Teams from '../database/models/Teams';
 import TeamsService from '../database/services/teamsService';
 import { mockOfAllTeams } from './mocks/mockOfAllTeams';
+import { mockCruzeiro } from './mocks/mockCruzeiro';
 import { Response } from 'superagent';
 import { resourceUsage } from 'process';
 
@@ -22,6 +23,16 @@ describe('Testes de unidade do model de vendas', () => {
     expect(result).to.have.status(200);
     expect(result.body).to.deep.equal(mockOfAllTeams);
   })
+
+  it('Testa se ao acessar a rota /teams/id, é exibido o clube de id correspondente', async () => {
+    // Act: executa o teste
+    const result = await chai.request(app).get('/teams/5');
+    // Assert:verifica o resultado do teste
+    expect(result).to.have.status(200);
+    expect(result.body).to.deep.equal(mockCruzeiro);
+  })
+
+
 
   afterEach(function () {
     sinon.restore();
