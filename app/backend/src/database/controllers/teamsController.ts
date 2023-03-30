@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import TeamsService from '../services/teamsService';
-import ITeam from '../interfaces/ITeam';
 
 export default class TeamsController {
   service: TeamsService;
