@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import TeamsService from '../services/teamsService';
+import ITeam from '../interfaces/ITeam';
 
 export default class TeamsController {
   service: TeamsService;
@@ -12,5 +13,11 @@ export default class TeamsController {
     const allTeams = await this.service.getAll();
     console.log(allTeams);
     res.status(200).json(allTeams);
+  }
+
+  async getTeamById(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+    const targetTeam = await this.service.getById(id);
+    res.status(200).json(targetTeam);
   }
 }
