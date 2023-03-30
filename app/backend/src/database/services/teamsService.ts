@@ -17,11 +17,15 @@
 // Dica da Lígia: NÃO usar arrow function, pois atrapalha o escopo da classe
 // REF: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#cannot_be_used_as_methods
 
+import { ModelStatic } from 'sequelize';
 import Teams from '../models/Teams';
 
 export default class TeamsService {
-  static async getAll():Promise<Teams[]> {
-    const allTeams = await this.getAll();
+  model: ModelStatic<Teams> = Teams;
+
+  async getAll():Promise<Teams[]> {
+    const allTeams = await this.model.findAll();
+    console.log()
     return allTeams;
   }
 }
