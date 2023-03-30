@@ -7,10 +7,10 @@ export default class TeamsController {
   constructor() {
     this.service = new TeamsService();
   }
+
   async getAllTeams(_req: Request, res: Response): Promise<void> {
     const allTeams = await this.service.getAll();
     console.log(allTeams);
     res.status(200).json(allTeams);
   }
 }
-

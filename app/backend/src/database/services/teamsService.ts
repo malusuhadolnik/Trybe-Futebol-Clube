@@ -25,7 +25,6 @@ export default class TeamsService {
 
   async getAll():Promise<Teams[]> {
     const allTeams = await this.model.findAll();
-    console.log()
     return allTeams;
   }
 }
