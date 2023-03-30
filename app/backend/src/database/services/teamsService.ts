@@ -23,5 +23,5 @@ export default class TeamsService {
   static async getAll():Promise<Teams[]> {
     const allTeams = await this.getAll();
     return allTeams;
-  };
+  }
 }
