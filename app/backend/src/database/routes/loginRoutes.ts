@@ -7,7 +7,7 @@ const instaceOfLogin = new LoginController();
 const loginRouter = Router();
 
 loginRouter.post('/', validatePassword, validateEmail, (req, res) => {
-    instaceOfLogin.validateCredentials(req,res)
+  instaceOfLogin.validateCredentials(req, res);
 });
 
 export default loginRouter;

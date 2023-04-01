@@ -1,20 +1,19 @@
-import { ModelStatic } from "sequelize";
-import Users from "../models/Users";
-import ILogin from "../interfaces/ILogin";
+import { ModelStatic } from 'sequelize';
 import * as bcrypt from 'bcryptjs';
 // https://levelup.gitconnected.com/using-bcrypt-to-hash-and-compare-passwords-with-nodejs-and-mongodb-366ff80138b7
+import Users from '../models/Users';
+import ILogin from '../interfaces/ILogin';
 
 export default class LoginService {
-    model: ModelStatic<Users> = Users;
-  
-    async validateUser(loginInfo: ILogin){ 
-      const { email, password } = loginInfo;
-      const credentials = await this.model.findOne({ where: { email }});
+  model: ModelStatic<Users> = Users;
 
-      if (!credentials) return { isValid: false };
+  async validateUser(loginInfo: ILogin) {
+    const { email, password } = loginInfo;
+    const credentials = await this.model.findOne({ where: { email } });
 
-      const isValid = bcrypt.compareSync(password, credentials?.dataValues.password);
-      
-      return { credentials, isValid };
-    }
-  };
+    if (!credentials) return { isValid: false };
+
+    const isValid = bcrypt.compareSync(password, credentials?.dataValues.password);
+    return { credentials, isValid };
+  }
+}
