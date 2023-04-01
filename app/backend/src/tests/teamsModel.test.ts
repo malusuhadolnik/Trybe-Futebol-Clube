@@ -13,7 +13,7 @@ import { resourceUsage } from 'process';
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('Testes de unidade do model de vendas', () => {
+describe('Testes de integração para a rota Teams', () => {
   it('Testa se ao acessar a rota /teams, é exibida uma lista com todos os times', async () => {
     // Arrange: configura o que é necessário para a execução do teste: mock!
     sinon.stub(TeamsService.prototype, 'getAll').resolves(mockOfAllTeams as Teams[]); // o "prototype" foi sugestão do vscode
@@ -31,8 +31,6 @@ describe('Testes de unidade do model de vendas', () => {
     expect(result).to.have.status(200);
     expect(result.body).to.deep.equal(mockCruzeiro);
   })
-
-
 
   afterEach(function () {
     sinon.restore();
