@@ -16,4 +16,9 @@ export default class LoginService {
     const isValid = bcrypt.compareSync(password, credentials?.dataValues.password);
     return { credentials, isValid };
   }
+
+  async getUserByEmail(email: string) {
+    const credentials = await this.model.findOne({ where: { email } });
+    return credentials;
+  }
 }

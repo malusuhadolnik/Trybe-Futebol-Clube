@@ -9,7 +9,4 @@ const config: Jwt.SignOptions = { algorithm: 'HS256', expiresIn: '1d' };// o sig
 
 export const createJWT = (data: Omit<ILogin, 'password'>) => Jwt.sign(data, JWT_SECRET, config);
 
-export const verifyJWT = (token: string) => {
-  console.log(token);
-  return Jwt.verify(token, JWT_SECRET);
-};
+export const verifyJWT = (token: string) => Jwt.verify(token, JWT_SECRET);
