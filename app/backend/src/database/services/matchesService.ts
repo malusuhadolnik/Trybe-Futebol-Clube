@@ -12,24 +12,23 @@ import IMatch from '../interfaces/IMatch';
 import Teams from '../models/Teams';
 
 export default class MatchesService {
-    model: ModelStatic<Matches> = Matches;
-  
-    async getAllMatches():Promise<IMatch[]> {
-      const allTeams = await this.model.findAll({
-        include: [{
-            model: Teams,
-            as: 'homeTeam', // nome da chave esperada
-            attributes: ['teamName'], // a coluna que queremos
-            required: false, // left join
-        },
-        {
-            model: Teams,
-            as:'awayTeam',
-            attributes: ['teamName'],
-            required: false
-        }]
-      });
-      return allTeams;
-    }
+  model: ModelStatic<Matches> = Matches;
 
+  async getAllMatches():Promise<IMatch[]> {
+    const allTeams = await this.model.findAll({
+      include: [{
+        model: Teams,
+        as: 'homeTeam', // nome da chave esperada
+        attributes: ['teamName'], // a coluna que queremos
+        required: false, // left join
+      },
+      {
+        model: Teams,
+        as: 'awayTeam',
+        attributes: ['teamName'],
+        required: false,
+      }],
+    });
+    return allTeams;
   }
+}
