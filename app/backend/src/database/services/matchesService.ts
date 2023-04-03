@@ -3,6 +3,7 @@
 
 // referências consultadas:
 // https://sequelize.org/docs/v6/advanced-association-concepts/eager-loading/
+// https://sequelize.org/docs/v6/core-concepts/assocs/
 // https://github.com/sequelize/sequelize/issues/13551
 // https://medium.com/@edumarcelino/joins-com-sequelize-mysql-e-node-js-parte-1-bb70893a28b0
 
@@ -18,7 +19,7 @@ export default class MatchesService {
     const allTeams = await this.model.findAll({
       include: [{
         model: Teams,
-        as: 'homeTeam', // nome da chave esperada
+        as: 'homeTeam', // este é o alias da chave
         attributes: ['teamName'], // a coluna que queremos
         required: false, // left join
       },

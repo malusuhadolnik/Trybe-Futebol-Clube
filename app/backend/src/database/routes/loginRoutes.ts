@@ -13,14 +13,6 @@ loginRouter.post('/', validatePassword, validateEmail, (req, res) => {
   instaceOfLogin.validateCredentials(req, res);
 });
 
-// loginRouter.get(
-//   '/role',
-//   (req, res, next) =>
-//     authToken.verifyToken(req, res, next),
-//   (req, res) =>
-//     instaceOfLogin.getRole(req, res),
-// );
-
 loginRouter.get(
   '/role',
   authenticateToken,

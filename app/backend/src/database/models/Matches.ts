@@ -49,15 +49,21 @@ Matches.init({
   modelName: 'matches',
   timestamps: false,
 });
+
 // sobre a associação entre tabelas:
 // um time pode jogar várias partidas (hasMany); ao passo que uma partida é entre dois times
 // ou seja: uma partida pertence à dois times.
 // As declarações de associations devem ficar concentradas em apenas uma das entidades da relação.
 // seguindo exemplo da aula Intro ao TS dia 02 Tipagem estática e generics:
-Matches.belongsTo(Teams, { foreignKey: 'homeTeamId' as 'teamId' });
-Matches.belongsTo(Teams, { foreignKey: 'awayTeamId' as 'teamId' });
 
-Teams.hasMany(Matches, { foreignKey: 'homeTeamId' as 'teamId' });
-Teams.hasMany(Matches, { foreignKey: 'awayTeamId' as 'teamId' });
+Matches.belongsTo(Teams, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+Matches.belongsTo(Teams, { foreignKey: 'awayTeamId', as: 'awayTeam' });
+
+Teams.hasMany(Matches, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+Teams.hasMany(Matches, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
 export default Matches;
+
+// o "as", ou alias, é uma forma de dar um nome diferente à FK
+// precisamos disso para que o eager loading feito pelo includes no sequelize funcione
+// 'Aliases are especially useful when you need to define two different associations between the same models.'
