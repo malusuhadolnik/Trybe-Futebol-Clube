@@ -16,7 +16,7 @@ describe('Testes de integração para a rota matches', () => {
   afterEach(sinon.restore);
 
   it('deve retornar a lista de todas as partidas em caso de sucesso', async () => {
-    //   sinon.stub(Model, 'findAll').resolves(mockMatches as IMatch[]);
+      // sinon.stub(Model, 'findAll').resolves(mockMatches as IMatch);
   
       const httpResponse = await chai.request(app).get('/matches')
       expect(httpResponse.status).to.be.equal(200);
