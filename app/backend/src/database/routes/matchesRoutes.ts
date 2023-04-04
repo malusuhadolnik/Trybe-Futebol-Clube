@@ -18,6 +18,6 @@ matchesRouter.patch(
   authenticateToken,
   (req, res) =>
     matchesController.updateScore(req, res),
-  );
+);
 
 export default matchesRouter;
