@@ -13,4 +13,11 @@ matchesRouter.patch(
     matchesController.setProgressToF(req, res),
 );
 
+matchesRouter.patch(
+  '/:id',
+  authenticateToken,
+  (req, res) =>
+    matchesController.updateScore(req, res),
+  );
+
 export default matchesRouter;
