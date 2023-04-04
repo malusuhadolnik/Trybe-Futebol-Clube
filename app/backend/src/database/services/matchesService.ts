@@ -54,4 +54,9 @@ export default class MatchesService {
     });
     return filteredTeams;
   }
+
+  async setProgressToFalse(givenId: number) {
+    const updated = await this.model.update({ inProgress: false }, { where: { id: givenId } });
+    return updated;
+  }
 }

@@ -20,4 +20,14 @@ export default class MatchesController {
     const allMatches = await this.service.getAllMatches();
     return res.status(200).json(allMatches);
   }
+
+  async setProgressToF(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const idAsNumber = Number(id);
+    const updated = await this.service.setProgressToFalse(idAsNumber);
+    if (updated) {
+      return res.status(200).json({ message: 'Finished' });
+    }
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
 }

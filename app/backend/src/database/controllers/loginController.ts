@@ -13,7 +13,7 @@ export default class LoginController {
   async validateCredentials(req: Request, res: Response): Promise<Response> {
     const { email } = req.body;
     const { credentials, isValid } = await this.service.validateUser(req.body);
-    console.log(credentials?.dataValues);
+    console.log(`retorno validatecredentials ${credentials?.dataValues.id}`);
     if (credentials && isValid === true) {
       const token = createJWT({ email }); // obs1
       return res.status(200).json({ token });
