@@ -1,3 +1,4 @@
+// Referências: https://flaviocopes.com/express-get-query-variables/
 import { Request, Response } from 'express';
 import MatchesService from '../services/matchesService';
 
@@ -8,9 +9,15 @@ export default class MatchesController {
     this.service = new MatchesService();
   }
 
-  async getAllMatches(_req: Request, res: Response): Promise<void> {
+  async getAllMatches(req: Request, res: Response): Promise<Response> {
+    const { inProgress } = req.query;
+
+    if (inProgress) {
+      const filteredMatches = await this.service.filterByProgress(inProgress as string);// string como tipo foi sugerido pelo vscode
+      return res.status(200).json(filteredMatches);
+    }
+
     const allMatches = await this.service.getAllMatches();
-    console.log(allMatches);
-    res.status(200).json(allMatches);
+    return res.status(200).json(allMatches);
   }
 }
