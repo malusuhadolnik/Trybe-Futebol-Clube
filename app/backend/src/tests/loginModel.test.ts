@@ -1,10 +1,14 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
+import * as bcryptjs from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { app } from '../app';
 import { Model } from 'sequelize';
 import Users from '../database/models/Users';
+
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJpYXQiOjE2ODA2NDcxOTYsImV4cCI6MTY4MDczMzU5Nn0.7c4nXT7OMowA0RMDCKa6-ZC9d6rtlHa5MfMVMyBJwpA"
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -61,21 +65,25 @@ describe('Testes de integração para a rota login', () => {
       expect(httpResponse.status).to.equal(401)
       expect(httpResponse.body).to.deep.equal({ message: 'Invalid email or password' })
     })
-    // it('deve retornar status 200 caso o login esteja correto', async () => {
-    //   const user = {
-    //     username: 'User',
-    //     role: 'user',
-    //     email: 'user@user.com',
-    //     password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO'
-    //   }
-    //   sinon.stub(Model, 'findOne').resolves(user as Users);
+    it('deve retornar status 200 caso o login esteja correto', async () => {
+      const user = {
+        username: 'User',
+        role: 'user',
+        email: 'user@user.com',
+        password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO'
+      }
+      sinon.stub(Model, 'findOne').resolves(user as Users);
+      // toda biblioteca usada precisa ser mockada!
+      sinon.stub(bcryptjs, 'compareSync').resolves(true);
+      sinon.stub(jwt, 'sign').resolves(token);
   
-    //   const httpResponse = await chai.request(app)
-    //     .post('/login')
-    //     .send({
-    //       email: 'user@user.com',
-    //       password: 'secret_user'
-    //     })
-    //   expect(httpResponse.status).to.be.equal(200);
-    // })
+      const httpResponse = await chai.request(app)
+        .post('/login')
+        .send({
+          email: 'user@user.com',
+          password: 'secret_user'
+        })
+      expect(httpResponse.status).to.be.equal(200);
+      // expect(httpResponse.body).to.have.key('token');
+    })
   })

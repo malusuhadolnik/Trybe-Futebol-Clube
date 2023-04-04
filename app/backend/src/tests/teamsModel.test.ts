@@ -16,7 +16,7 @@ const { expect } = chai;
 describe('Testes de integração para a rota Teams', () => {
   it('Testa se ao acessar a rota /teams, é exibida uma lista com todos os times', async () => {
     // Arrange: configura o que é necessário para a execução do teste: mock!
-    sinon.stub(TeamsService.prototype, 'getAll').resolves(mockOfAllTeams as Teams[]); // o "prototype" foi sugestão do vscode
+    sinon.stub(TeamsService.prototype, 'getAll').resolves(mockOfAllTeams as unknown as Teams[]); // o "prototype" foi sugestão do vscode
     // Act: executa o teste
     const result = await chai.request(app).get('/teams');
     // Assert:verifica o resultado do teste

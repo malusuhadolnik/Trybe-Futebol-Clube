@@ -5,6 +5,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import { Model } from 'sequelize';
 import { mockMatches } from './mocks/mockMatches';
+import { mockInProgress } from './mocks/mockInProgress';
 import IMatch from '../database/interfaces/IMatch';
 import Matches from '../database/models/Matches'
 
@@ -16,10 +17,29 @@ describe('Testes de integração para a rota matches', () => {
   afterEach(sinon.restore);
 
   it('deve retornar a lista de todas as partidas em caso de sucesso', async () => {
-      // sinon.stub(Model, 'findAll').resolves(mockMatches as IMatch);
+      sinon.stub(Model, 'findAll').resolves(mockMatches as unknown as Matches[]);
   
       const httpResponse = await chai.request(app).get('/matches')
       expect(httpResponse.status).to.be.equal(200);
       expect(httpResponse.body).to.deep.equal(mockMatches);
     })
+
+  it('deve filtrar as partidas em andamento se inProgress = true', async () => {
+    const inProgressIsTrue = [mockInProgress[1]];
+    sinon.stub(Model, "findAll").resolves(inProgressIsTrue as unknown as Matches[]);
+  
+    const httpResponse = await chai.request(app).get('/matches?inProgress=true');
+    expect(httpResponse.status).to.be.equal(200);
+    expect(httpResponse.body).to.deep.equal(inProgressIsTrue);
+    })
+
+  
+  it('deve filtrar as partidas em andamento se inProgress = false', async () => {
+    const inProgressIsFalse = [mockInProgress[1]];
+    sinon.stub(Model, "findAll").resolves(inProgressIsFalse as unknown as Matches[]);
+    
+      const httpResponse = await chai.request(app).get('/matches?inProgress=false');
+      expect(httpResponse.status).to.be.equal(200);
+      expect(httpResponse.body).to.deep.equal(inProgressIsFalse);
+      })
 });
