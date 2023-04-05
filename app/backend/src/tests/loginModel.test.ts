@@ -67,12 +67,14 @@ describe('Testes de integração para a rota login', () => {
     })
     it('deve retornar status 200 caso o login esteja correto', async () => {
       const user = {
+        dataValues: {
         username: 'User',
         role: 'user',
         email: 'user@user.com',
         password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO'
+        }
       }
-      sinon.stub(Model, 'findOne').resolves(user as Users);
+      sinon.stub(Users, 'findOne').resolves(user as Users) ;
       // toda biblioteca usada precisa ser mockada!
       sinon.stub(bcryptjs, 'compareSync').resolves(true);
       sinon.stub(jwt, 'sign').resolves(token);
@@ -83,7 +85,9 @@ describe('Testes de integração para a rota login', () => {
           email: 'user@user.com',
           password: 'secret_user'
         })
-      expect(httpResponse.status).to.be.equal(200);
+        // console.log(httpResponse.status); retorno validatecredentials undefined 401
+        // console.log(httpResponse.body);  { message: 'Invalid email or password' }
+      expect(httpResponse.status).to.be.equal(200); 
       // expect(httpResponse.body).to.have.key('token');
     })
   })
