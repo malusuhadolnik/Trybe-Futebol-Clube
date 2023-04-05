@@ -29,7 +29,7 @@ export default class TeamsService {
     return allTeams;
   }
 
-  async getById(id: string):Promise<ITeam | null> { // preciso construir essa interface ainda
+  async getById(id: string):Promise<ITeam | null> {
     const targetTeam = await this.model.findByPk(id);
     return targetTeam;
   }

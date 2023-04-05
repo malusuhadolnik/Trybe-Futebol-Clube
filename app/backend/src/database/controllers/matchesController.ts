@@ -52,6 +52,7 @@ export default class MatchesController {
     const atID = Number(awayTeamId);
     const htG = Number(homeTeamGoals);
     const atG = Number(awayTeamGoals);
+
     const newMatch = await this.service.createNewmatch(htID, atID, htG, atG);
     // newMatch é um objeto com 4 chaves, queremos a dataValues
     if (newMatch) {

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import MatchesController from '../controllers/matchesController';
 import authenticateToken from '../middlewares/authToken';
+import validateNewMatch from '../middlewares/validateNewMatch';
 
 const matchesController = new MatchesController();
 const matchesRouter = Router();
@@ -23,6 +24,7 @@ matchesRouter.patch(
 matchesRouter.post(
   '/',
   authenticateToken,
+  validateNewMatch,
   (req, res) =>
     matchesController.createnewMatch(req, res),
 );
