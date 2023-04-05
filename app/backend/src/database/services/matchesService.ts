@@ -69,14 +69,21 @@ export default class MatchesService {
   }
 
   async createNewmatch(
-    homeTeamId: number,
-    awayTeamId: number,
-    homeTeamGoals: number,
-    awayTeamGoals: number,
+    htID: number,
+    atID: number,
+    htG: number,
+    atG: number,
   ) {
     const newTeam = await this.model.create(
-      { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals },
+      {
+        homeTeamId: htID,
+        awayTeamId: atID,
+        homeTeamGoals: htG,
+        awayTeamGoals: atG,
+        inProgress: true,
+      },
     );
+    console.log(newTeam);
     return newTeam;
   }
 }

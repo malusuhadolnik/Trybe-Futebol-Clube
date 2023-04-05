@@ -2,6 +2,7 @@
 import { Request, Response } from 'express';
 import MatchesService from '../services/matchesService';
 
+const error500 = { message: 'Something went wrong' };
 export default class MatchesController {
   service: MatchesService;
 
@@ -28,7 +29,7 @@ export default class MatchesController {
     if (updated) {
       return res.status(200).json({ message: 'Finished' });
     }
-    return res.status(500).json({ message: 'Something went wrong' });
+    return res.status(500).json(error500);
   }
 
   async updateScore(req:Request, res: Response): Promise<Response> {
@@ -42,6 +43,20 @@ export default class MatchesController {
     if (newScore) {
       return res.status(200).json({ message: 'Update succeeded' });
     }
-    return res.status(500).json({ message: 'Something went wrong' });
+    return res.status(500).json(error500);
+  }
+
+  async createnewMatch(req:Request, res: Response): Promise<Response> {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+    const htID = Number(homeTeamId);
+    const atID = Number(awayTeamId);
+    const htG = Number(homeTeamGoals);
+    const atG = Number(awayTeamGoals);
+    const newMatch = await this.service.createNewmatch(htID, atID, htG, atG);
+    // newMatch é um objeto com 4 chaves, queremos a dataValues
+    if (newMatch) {
+      return res.status(201).json(newMatch.dataValues);
+    }
+    return res.status(500).json(error500);
   }
 }

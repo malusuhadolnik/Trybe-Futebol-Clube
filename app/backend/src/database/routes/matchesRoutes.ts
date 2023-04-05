@@ -20,4 +20,11 @@ matchesRouter.patch(
     matchesController.updateScore(req, res),
 );
 
+matchesRouter.post(
+  '/',
+  authenticateToken,
+  (req, res) =>
+    matchesController.createnewMatch(req, res),
+);
+
 export default matchesRouter;
