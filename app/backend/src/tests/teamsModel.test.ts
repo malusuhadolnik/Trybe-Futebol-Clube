@@ -9,6 +9,7 @@ import { mockOfAllTeams } from './mocks/mockOfAllTeams';
 import { mockCruzeiro } from './mocks/mockCruzeiro';
 import { Response } from 'superagent';
 import { resourceUsage } from 'process';
+import { Model } from 'sequelize';
 
 chai.use(chaiHttp);
 const { expect } = chai;

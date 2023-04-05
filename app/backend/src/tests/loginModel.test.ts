@@ -7,6 +7,8 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import { Model } from 'sequelize';
 import Users from '../database/models/Users';
+import LoginService from '../database/services/loginService';
+import LoginController from '../database/controllers/loginController';
 
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJpYXQiOjE2ODA2NDcxOTYsImV4cCI6MTY4MDczMzU5Nn0.7c4nXT7OMowA0RMDCKa6-ZC9d6rtlHa5MfMVMyBJwpA"
 
@@ -75,8 +77,8 @@ describe('Testes de integração para a rota login', () => {
         }
       }
       sinon.stub(Users, 'findOne').resolves(user as Users) ;
-      // toda biblioteca usada precisa ser mockada!
-      sinon.stub(bcryptjs, 'compareSync').resolves(true);
+      //teste libs externas
+      sinon.stub(LoginService.prototype, "validateUser").resolves({isValid: true, credentials: user as Users})
       sinon.stub(jwt, 'sign').resolves(token);
   
       const httpResponse = await chai.request(app)
@@ -85,9 +87,7 @@ describe('Testes de integração para a rota login', () => {
           email: 'user@user.com',
           password: 'secret_user'
         })
-        // console.log(httpResponse.status); retorno validatecredentials undefined 401
-        // console.log(httpResponse.body);  { message: 'Invalid email or password' }
       expect(httpResponse.status).to.be.equal(200); 
-      // expect(httpResponse.body).to.have.key('token');
+      expect(httpResponse.body).to.have.key('token');
     })
   })
