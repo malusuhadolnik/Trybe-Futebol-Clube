@@ -57,3 +57,5 @@ GROUP BY teams.id;
 `;
 
 export const awayLBQuery = { status: 'em construção' };
+
+// preciso colocar um orderby
