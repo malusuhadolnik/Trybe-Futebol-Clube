@@ -5,13 +5,17 @@
 
 import { QueryTypes } from 'sequelize';
 import sequelize from '../models';
-import { homeLBQuery } from '../utils/homeLBQuery';
+import { homeLBQuery, awayLBQuery } from '../utils/homeLBQuery';
 import { ILeaderboard } from '../interfaces/ILeaderboard';
 
 export default class LeaderboardService {
   static async getHomeLeaderboard():Promise<ILeaderboard[]> {
     const homeBoard = await sequelize.query(homeLBQuery, { type: QueryTypes.SELECT });
-    console.log(homeBoard);
     return homeBoard as ILeaderboard[];
+  }
+
+  static async getAwayLeaderboard():Promise<ILeaderboard[]> {
+    const awayBoard = await sequelize.query(awayLBQuery, { type: QueryTypes.SELECT });
+    return awayBoard as ILeaderboard[];
   }
 }
