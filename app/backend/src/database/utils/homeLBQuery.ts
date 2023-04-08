@@ -10,48 +10,45 @@
 
 export const homeLBQuery = `
 SELECT
-  teams.team_name AS name,
-  COUNT(matches.id) AS totalGames,
-  SUM(
+    teams.team_name AS name,
+    COUNT(matches.id) AS totalGames,
+    SUM(
       CASE
-        WHEN matches.home_team_goals < matches.away_team_goals THEN 3
+        WHEN matches.home_team_goals > matches.away_team_goals THEN 3
         WHEN matches.home_team_goals = matches.away_team_goals THEN 1
         ELSE 0
-        END
+      END
     ) AS totalPoints,
     SUM(
         CASE
-          WHEN matches.away_team_id = teams.id
-          AND matches.away_team_goals > matches.home_team_goals THEN 1
+          WHEN matches.home_team_goals > matches.away_team_goals THEN 1
           ELSE 0
         END
     ) AS totalVictories,
     SUM(
         CASE
-          WHEN matches.away_team_id = teams.id
-          AND matches.away_team_goals = matches.home_team_goals THEN 1
-          ELSE 0
+            WHEN matches.home_team_goals = matches.away_team_goals THEN 1
+            ELSE 0
         END
     ) AS totalDraws,
     SUM(
         CASE
-          WHEN matches.away_team_id = teams.id
-          AND matches.away_team_goals < matches.home_team_goals THEN 1
-          ELSE 0
+            WHEN matches.home_team_goals < matches.away_team_goals THEN 1
+            ELSE 0
         END
     ) AS totalLosses,
-    SUM(matches.away_team_goals) AS goalsFavor,
-    SUM(matches.home_team_goals) AS goalsOwn,
-    SUM(matches.away_team_goals - matches.home_team_goals) AS goalsBalance,
-    FORMAT((SUM(
-      CASE
-        WHEN matches.away_team_id = teams.id
-        AND matches.away_team_goals > matches.home_team_goals THEN 3
-        WHEN matches.away_team_id = teams.id
-        AND matches.away_team_goals = matches.home_team_goals THEN 1
-        ELSE 0
-      END
-  ) / (COUNT(matches.id) * 3)) * 100, 2) AS efficiency
+    SUM(matches.home_team_goals) AS goalsFavor,
+    SUM(matches.away_team_goals) AS goalsOwn,
+    SUM(matches.home_team_goals - matches.away_team_goals) AS goalsBalance,
+    ROUND(
+        (SUM(
+            CASE
+                WHEN matches.home_team_goals > matches.away_team_goals THEN 3
+                WHEN matches.home_team_goals = matches.away_team_goals THEN 1
+                ELSE 0
+            END
+        ) / (COUNT(matches.id) * 3)) * 100, 2
+    ) AS efficiency
 FROM TRYBE_FUTEBOL_CLUBE.teams AS teams
 INNER JOIN TRYBE_FUTEBOL_CLUBE.matches AS matches
 ON teams.id = matches.home_team_id
