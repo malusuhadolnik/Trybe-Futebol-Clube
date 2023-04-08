@@ -53,7 +53,8 @@ FROM TRYBE_FUTEBOL_CLUBE.teams AS teams
 INNER JOIN TRYBE_FUTEBOL_CLUBE.matches AS matches
 ON teams.id = matches.home_team_id
 WHERE matches.in_progress = false
-GROUP BY teams.id;
+GROUP BY teams.id
+ORDER BY totalPoints DESC, totalVictories DESC, goalsBalance DESC, goalsFavor DESC;
 `;
 
 export const awayLBQuery = { status: 'em construção' };
