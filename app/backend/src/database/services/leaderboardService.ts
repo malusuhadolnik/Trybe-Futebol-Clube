@@ -6,10 +6,12 @@
 import { QueryTypes } from 'sequelize';
 import sequelize from '../models';
 import { homeLBQuery } from '../utils/homeLBQuery';
+import { ILeaderboard } from '../interfaces/ILeaderboard';
 
 export default class LeaderboardService {
-  static async getHomeLeaderboard() {
-    const [homeBoard] = await sequelize.query(homeLBQuery, { type: QueryTypes.SELECT });
-    return homeBoard;
+  static async getHomeLeaderboard():Promise<ILeaderboard[]> {
+    const homeBoard = await sequelize.query(homeLBQuery, { type: QueryTypes.SELECT });
+    console.log(homeBoard);
+    return homeBoard as ILeaderboard[];
   }
 }
