@@ -65,5 +65,15 @@ Os demais foram desenvolvidos pelo time da Trybe.
       <td>/matches</td>
       <td>Cadastra uma nova partida em andamento</td>
     </tr>
+    </tr>
+      <td>GET</td>
+      <td>/leaderboard/home</td>
+      <td>Lista informações de desempenho de times de casa</td>
+    </tr>
+    </tr>
+      <td>GET</td>
+      <td>/leaderboard/away</td>
+      <td>Lista informações de desempenho de times de fora</td>
+    </tr>
   </tbody>
 </table>
