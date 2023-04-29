@@ -79,7 +79,7 @@ Os demais foram desenvolvidos pelo time da Trybe.
 ## Tecnologias usadas
 
 >Back-End:
-Docker, docker-compose, SQL, Node.js, Sequelize, JWT, Typescript.
+Docker, docker-compose, SQL, Node.js, Sequelize, JWT, Typescript, Mocha, sinon-chai.
 
 ## Instalando Dependências
 - É necessário possuir o docker instalado em sua máquina
