@@ -1,5 +1,3 @@
-# :construction: README em construção ! :construction:
-
 # Projeto Trybe-Futebol-Clube
 
 # Sobre
