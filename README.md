@@ -77,3 +77,28 @@ Os demais foram desenvolvidos pelo time da Trybe.
     </tr>
   </tbody>
 </table>
+
+## Tecnologias usadas
+
+>Back-End:
+Docker, docker-compose, SQL, Node.js, Sequelize, JWT, Typescript.
+
+## Instalando Dependências
+- É necessário possuir o docker instalado em sua máquina
+
+1. Clone este repositório em su máquina, e em seguida suba o container:
+```bash
+npm run compose:up
+``` 
+- Serão inicializados três containers (db, app_backend e app_frontend)
+
+2. Para executar os scripts do back-end:
+```bash
+docker exec -it app_backend sh
+``` 
+- As credencias de acesso ao banco de dados estão definidas no arquivo docker-compose.yml.
+
+3. Agora instale as dependências dentro do container:
+```bash
+npm install
+``` 
